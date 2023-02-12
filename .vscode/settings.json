@@ -2,7 +2,7 @@
     "editor.accessibilityPageSize": 18,
     "window.zoomLevel": 1,
     "workbench.activityBar.visible": true,
-    "workbench.statusBar.visible": false,
+    "workbench.statusBar.visible": true,
     "editor.formatOnSave": true,
     "terminal.integrated.fontSize": 18,
     "terminal.integrated.fontWeight": "500",
