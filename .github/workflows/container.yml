@@ -20,6 +20,11 @@ jobs:
         with:
           entrypoint: '/usr/local/bin/node'
           args: '-v'
+      - name: Slack Webhook Integration
+        uses: docker://technosophos/slack-notify
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_URL }}
+          SLACK_MESSAGE: 'Testing Slack and Github workflow integration'
   node-docker:
     runs-on: ubuntu-latest
     # container: 
