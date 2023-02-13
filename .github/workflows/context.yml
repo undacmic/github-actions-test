@@ -19,6 +19,7 @@ jobs:
       - name: Dump GitHub context
         id: github_context_step
         run: eccho '${{ toJSON(github) }}'
+        continue-on-error: true
       - name: Dump job context
         if: failure()
         run: echo '${{ toJSON(job) }}'
