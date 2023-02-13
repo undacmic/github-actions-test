@@ -11,7 +11,8 @@ jobs:
         node-version: [6, 8, 10]
         include:
           - os: ubuntu-latest
-          - node-version: 4
+            node-version: 4
+
         exclude:
           - os: ubuntu-latest
             node-version: 6
