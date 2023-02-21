@@ -15,14 +15,12 @@ jobs:
           ls -a
       - name: Environment Setup
         run: |
-          sudo add-apt-repository ppa:dosemu2/ppa
-          sudo apt update
-          sudo apt-get install -y nasm dosemu2
+          sudo apt-get install -y nasm dosbox
       - name: Assemble using NASM into a binary
         run:  nasm -fbin -o homework.com homework.asm
       - name: Execute binary and save output
         run: |
-          dosemu "${GITHUB_WORKSPACE} homework.com"
+          dosbox -noconsole -exit homework.com >> output.txt
           cat output.txt
        
       
