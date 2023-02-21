@@ -22,7 +22,7 @@ jobs:
         env:
           TERM: xterm
         run: |
-          dosbox -noconsole -exit -c "mount c ." -c "c:" -c "homework.com >> output.txt" -c "exit" -nosound
+          dosbox -c "mount c ." -c "c:" -c "homework.com >> output.txt" -c "exit"
           cat output.txt
        
       
