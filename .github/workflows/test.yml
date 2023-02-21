@@ -23,6 +23,9 @@ jobs:
           TERM: xterm
         run: |
           sudo dosbox -c "mount c ." -c "c:" -c "homework.com >> output.txt" -c "exit"
-          cat output.txt
+      - name: List Files After Checkout
+        run: |
+          pwd
+          ls -a
        
       
