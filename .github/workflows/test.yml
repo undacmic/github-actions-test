@@ -19,6 +19,8 @@ jobs:
       - name: Assemble using NASM into a binary
         run:  nasm -fbin -o homework.com homework.asm
       - name: Execute binary and save output
+        env:
+          TERM: xterm
         run: |
           dosbox -noconsole -exit homework.com >> output.txt
           cat output.txt
