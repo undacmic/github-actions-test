@@ -5,7 +5,7 @@ on:
 
 jobs:
   build-run-test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     steps:
       - name: Checkout source .asm files
         uses: actions/checkout@v3.3.0
@@ -14,12 +14,15 @@ jobs:
           pwd
           ls -a
       - name: Environment Setup
-        run: sudo apt-get install -y dosbox nasm
+        run: |
+          sudo add-apt-repository ppa:dosemu2/ppa
+          sudo apt update
+          sudo apt-get install -y nasm dosemu2
       - name: Assemble using NASM into a binary
         run:  nasm -fbin -o homework.com homework.asm
       - name: Execute binary and save output
         run: |
-          dosbox -c "mount c ." -c "c:" -c "hello.com >> output.txt" -c "exit"
+          dosbox -dumb hello.com >> output.txt
           cat output.txt
        
       
