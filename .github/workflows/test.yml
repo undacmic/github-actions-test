@@ -22,7 +22,7 @@ jobs:
         run:  nasm -fbin -o homework.com homework.asm
       - name: Execute binary and save output
         run: |
-          dosemu -dumb hello.com >> output.txt
+          dosemu -dumb homework.com >> output.txt
           cat output.txt
        
       
