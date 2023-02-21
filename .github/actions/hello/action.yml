@@ -1,0 +1,14 @@
+name: Hello World
+author: Dragos
+description: A simple Javascript action that will output a 'Hello World' message
+inputs:
+  who:
+    description: 'Person to greet'
+    required: true
+    default: user
+outputs:
+  time:
+    description: 'Greeting time'
+runs:
+  using: "node12"
+  main: "index.js"

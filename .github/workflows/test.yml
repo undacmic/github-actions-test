@@ -1,0 +1,25 @@
+name: Automated Homework Testing - Assembly Language
+
+on:
+  - push
+
+jobs:
+  build-run-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source .asm files
+        uses: actions/checkout@v3.3.0
+      - name: List Files After Checkout
+        run: |
+          pwd
+          ls -a
+      - name: Environment Setup
+        run: sudo apt-get install -y dosbox nasm
+      - name: Assemble using NASM into a binary
+        run:  nasm -fbin -o homework.com homework.asm
+      - name: Execute binary and save output
+        run: |
+          dosbox -c "mount c ." -c "c:" -c "hello.com >> output.txt" -c "exit"
+          cat output.txt
+       
+      
