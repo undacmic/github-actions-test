@@ -27,5 +27,6 @@ jobs:
         run: |
           pwd
           ls -a
+          cat OUTPUT.TXT
        
       
