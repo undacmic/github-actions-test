@@ -6,6 +6,8 @@ on:
 jobs:
   build-run-test:
     runs-on: ubuntu-latest
+    env:
+      USER_ENTRY_EXISTS: false
     steps:
       - name: Checkout source .asm files
         uses: actions/checkout@v3.3.0
@@ -23,10 +25,8 @@ jobs:
           TERM: xterm
         run: |
           sudo dosbox -c "mount c ." -c "c:" -c "homework.com >> output.txt" -c "exit"
-      - name: List Files After Checkout
+      - name: Setup Google Sheets Cell Data
         run: |
-          pwd
-          ls -a
-          cat OUTPUT.TXT
-       
-      
+          echo "CELL_DATA_NAME=$(cat OUTPUT.TXT | head -n 1 | cut -f1 -d:)" >> $GITHUB_ENV
+          echo "CELL_DATA_CLASS=$(cat OUTPUT.TXT | head -n 1 | cut -f2 -d:)" >> $GITHUB_ENV
+          echo "CELL_DATA_RESULT=0" >> $GITHUB_ENV
