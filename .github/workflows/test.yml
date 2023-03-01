@@ -14,7 +14,7 @@ jobs:
       - name: List Files After Checkout
         run: |
           pwd
-          ls -a
+          ls -a 
       - name: Environment Setup
         run: |
           sudo apt-get install -y dosbox
@@ -22,7 +22,7 @@ jobs:
         env:
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
         run: |
-          gpg --quiet --batch --yes --decrypt --passphrase="$PASSPHRASE" --output $HOME/homework/arhitecturi-bot.json $HOME/homework/arhitecturi-bot.json.gpg
+          gpg --quiet --batch --yes --decrypt --passphrase="$PASSPHRASE" --output $GITHUB_WORKSPACE/homework/arhitecturi-bot.json $GITHUB_WORKSPACE/homework/arhitecturi-bot.json.gpg
       # - name: Save result in spreadsheet
       #   run: |
           
