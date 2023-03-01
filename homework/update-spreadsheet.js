@@ -37,25 +37,40 @@ jwtClient.authorize(function(err, tokens) {
         resource: {
           requests: [
             {
-              updateCells: {
-                rows: [
-                  {
-                    values: [
-                      {
-                        userEnteredValue: { stringValue: newValue },
-                        userEnteredFormat: { backgroundColor: newValue >= 50 ? passedColor : failedColor },
-                      },
-                    ],
-                  },
-                ],
-                fields: 'userEnteredValue,userEnteredFormat.backgroundColor',
+              // updateCells: {
+              //   rows: [
+              //     {
+              //       values: [
+              //         {
+              //           userEnteredValue: { stringValue: newValue },
+              //           userEnteredFormat: { backgroundColor: newValue >= 50 ? passedColor : failedColor },
+              //         },
+              //       ],
+              //     },
+              //   ],
+              //   fields: 'userEnteredValue,userEnteredFormat.backgroundColor',
+              //   range: {
+              //     sheetId: sheetId,
+              //     startRowIndex: cellNumber,
+              //     endRowIndex: cellNumber,
+              //     startColumnIndex: 2, 
+              //     endColumnIndex: 3,
+              //   },
+              // },
+              updateRange: {
                 range: {
                   sheetId: sheetId,
                   startRowIndex: cellNumber,
-                  endRowIndex: cellNumber,
+                  endRowIndex: cellNumber + 1,
                   startColumnIndex: 2, 
                   endColumnIndex: 3,
                 },
+                values: [
+                  [
+                    newValue
+                  ]
+                ],
+                fields: 'userEnteredValue',
               },
             },
           ],
