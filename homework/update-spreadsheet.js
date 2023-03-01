@@ -32,54 +32,31 @@ jwtClient.authorize(function(err, tokens) {
         blue: 0,
     };
 
-    sheets.spreadsheets.batchUpdate({
-        spreadsheetId,
-        resource: {
-          requests: [
-            {
-              // updateCells: {
-              //   rows: [
-              //     {
-              //       values: [
-              //         {
-              //           userEnteredValue: { stringValue: newValue },
-              //           userEnteredFormat: { backgroundColor: newValue >= 50 ? passedColor : failedColor },
-              //         },
-              //       ],
-              //     },
-              //   ],
-              //   fields: 'userEnteredValue,userEnteredFormat.backgroundColor',
-              //   range: {
-              //     sheetId: sheetId,
-              //     startRowIndex: cellNumber,
-              //     endRowIndex: cellNumber,
-              //     startColumnIndex: 2, 
-              //     endColumnIndex: 3,
-              //   },
-              // },
-              updateRange: {
-                range: {
-                  sheetId: sheetId,
-                  startRowIndex: cellNumber,
-                  endRowIndex: cellNumber + 1,
-                  startColumnIndex: 2, 
-                  endColumnIndex: 3,
-                },
-                values: [
-                  [
-                    newValue
-                  ]
-                ],
-                fields: 'userEnteredValue',
-              },
-            },
-          ],
+    sheets.spreadsheets.values.update({
+      spreadsheetId,
+      range: {
+        sheetId: sheetId,
+        startRowIndex: cellNumber,
+        endRowIndex: cellNumber + 1,
+        startColumnIndex: 2,
+        endColumnIndex: 3,
+      },
+      valueInputOption: 'USER_ENTERED',
+      resource: {
+        values: [
+          [
+            newValue
+          ]
+        ],
+        "userEnteredFormat": {
+          "backgroundColor": newValue >= 50 ? passedColor : failedColor,
         },
-      }, (err, res) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        console.log(res.data);
-      });
+      },
+    }, (err, res) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      console.log(res.data);
+    });
   });
