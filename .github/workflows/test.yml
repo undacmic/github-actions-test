@@ -32,7 +32,7 @@ jobs:
         run: |
           echo "SHEET_ID=$(echo ${{ github.event.head_commit.message }} | cut -f1 -d:)"
           echo "CELL_NUMBER=$(echo ${{ github.event.head_commit.message }} | cut -f2 -d:)"
-          echo "RESULT=$(tail -n 1 $GITHUB_WORKSPACE/homework/out/output)"
+          echo "RESULT=$(tail -n 1 $GITHUB_WORKSPACE/homework/out/OUTPUT)"
           node $GITHUB_WORKSPACE/homework/update-spreadsheet.js $SPREADSHEET_ID $SHEET_ID $CELL_NUMBER $RESULT
         env:
           SPREADSHEET_ID: ${{ secrets.GSHEET_SPREADSHEET_ID }}
