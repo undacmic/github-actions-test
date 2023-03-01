@@ -48,7 +48,7 @@ jwtClient.authorize(function(err, tokens) {
                   {
                     values: [
                       {
-                        userEnteredValue: { stringValue: newValue },
+                        userEnteredValue: { stringValue: toString(newValue) },
                         userEnteredFormat: { backgroundColor: newValue >= 50 ? passedColor : failedColor },
                       },
                     ],
