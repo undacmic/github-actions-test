@@ -18,9 +18,9 @@ jwtClient.authorize(function(err, tokens) {
     const sheets = google.sheets({ version: 'v4', auth: jwtClient });
 
     const spreadsheetId = process.argv[2]
-    const sheetId = parseInt(process.argv[3])
-    const cellNumber = parseInt(process.argv[4])
-    const newValue = parseInt(process.argv[5])
+    const sheetId = parseInt(process.env.SHEET_ID)
+    const cellNumber = parseInt(process.env.CELL_NUMBER)
+    const newValue = parseInt(process.env.RESULT)
 
     console.log(spreadsheetId)
     console.log(sheetId)
