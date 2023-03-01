@@ -55,7 +55,7 @@ do
         sed -i "s/in$((currentIndex - 1))/in${currentIndex}/g" open.asm
         sed -i "s/out$((currentIndex - 1))/out${currentIndex}/g" write.asm
     fi
-    /usr/bin/time --quiet -f "%e" timeout $maxRunTime dosbox -c "mount c: ." -c "c:" -c "tasm *.asm" -c "tlink homework open readLine close task write" -c "homework.exe > out/output" -c "exit" &> /dev/null
+    sudo /usr/bin/time --quiet -f "%e" timeout $maxRunTime dosbox -c "mount c: ." -c "c:" -c "tasm *.asm" -c "tlink homework open readLine close task write" -c "homework.exe > out/output" -c "exit" &> /dev/null
 	ret=$?
     outputPath="out/out${currentIndex}.txt"
 	checkReturnCode $ret
