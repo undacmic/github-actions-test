@@ -54,7 +54,7 @@ jwtClient.authorize(function(err, tokens) {
                   startRowIndex: cellNumber,
                   endRowIndex: cellNumber,
                   startColumnIndex: 2, 
-                  endColumnIndex: 2,
+                  endColumnIndex: 3,
                 },
               },
             },
