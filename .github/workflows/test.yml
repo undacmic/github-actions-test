@@ -29,7 +29,11 @@ jobs:
         run: |
           gpg --quiet --batch --yes --decrypt --passphrase="$PASSPHRASE" --output $GITHUB_WORKSPACE/homework/arhitecturi-bot.json $GITHUB_WORKSPACE/homework/arhitecturi-bot.json.gpg
       - name: Update spreadsheet
-        run: node $GITHUB_WORKSPACE/homework/update-spreadsheet.js $SPREADSHEET_ID 0 6 20
+        run: |
+          echo "SHEET_ID=$(echo ${{ github.event.head_commit.message }} | cut -f1 -d:)"
+          echo "CELL_NUMBER=$(echo ${{ github.event.head_commit.message }} | cut -f2 -d:)"
+          echo "RESULT=$(tail -n 1 $GITHUB_WORKSPACE/homework/out/output)"
+          node $GITHUB_WORKSPACE/homework/update-spreadsheet.js $SPREADSHEET_ID $SHEET_ID $CELL_NUMBER $RESULT
         env:
           SPREADSHEET_ID: ${{ secrets.GSHEET_SPREADSHEET_ID }}
           

@@ -36,11 +36,8 @@ START:
     ;
     ;
     ; Divide-by-zero
-    mov ax, [0xffff]
+    ;mov ax, [0xffff]
     ;
-    ;
-    ;MOV AH, 09H
-    ;INT 21H
     ;
     PUSH DX
     CALL TASK

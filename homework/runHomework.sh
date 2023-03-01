@@ -31,9 +31,9 @@ function checkReturnCode {
 	then
 		echo -e "\nERROR: Program ended with non-zero return code $ret."
 		echo "ERROR: Does your program return 0?"
-	elif [ -s out/output ]
+	elif [ -s out/output ] &&  grep -qE 'Illegal\s+command' out/output
 	then
-		errorMessage=$(cut -f1 -d: out/output)
+		errorMessage=$(tail -n 1 out/output | cut -f1 -d:)
 		echo -e "\nERROR: Program ended with following message: '$errorMessage'."
 		echo "Check for illegal instructions, divide-by-zero, stack overflows or invalid memory access."
 	fi
@@ -41,8 +41,8 @@ function checkReturnCode {
 
 tests="test/test1.txt test/test2.txt test/test3.txt"
 len=$(echo "$tests" | wc -w)
-pointsForOneTest=$(echo "(90/${len})")
-points=0
+pointsForOneTest=$(echo "(90.0/${len})" | bc -l)
+points=10
 maxRunTime=10
 for TEST in $tests
 do
@@ -55,7 +55,7 @@ do
         sed -i "s/in$((currentIndex - 1))/in${currentIndex}/g" open.asm
         sed -i "s/out$((currentIndex - 1))/out${currentIndex}/g" write.asm
     fi
-    /usr/bin/time --quiet -f "%e" timeout $maxRunTime dosbox -c "mount c: ." -c "c:" -c "tasm *.asm" -c "tlink homework open readLine close task write" -c "homework.exe > out/output" -c "exit" &> /dev/null
+    /usr/bin/time --quiet -f "%e" timeout $maxRunTime dosbox -c "mount c: ." -c "c:" -c "tasm *.asm" -c "tlink homework open readLine close task write" -c "homework.exe >> out/output" -c "exit" &> /dev/null
 	ret=$?
     outputPath="out/out${currentIndex}.txt"
 	checkReturnCode $ret
@@ -77,10 +77,10 @@ do
 	fi
     printTestName="Checking outputs for $testNameWithoutExt"
 	printResult $printTestName $pointsForOneTest
-    rm -f ./out/*
-	rm homework.map
-	rm homework.exe
+    rm -f ./out/*.TXT
+	rm homework.MAP
+	rm homework.EXE
 	rm *.OBJ
 done
-points=$(echo "$points+10" | bc -l)
+echo "$(echo $points | cut -d '.' -f1)" >> ./out/output
 echo "                                      Total  =  [ $(echo "scale=3; $points" | bc)/100.000 ]"
