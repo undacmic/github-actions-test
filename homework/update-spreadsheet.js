@@ -18,15 +18,9 @@ jwtClient.authorize(function(err, tokens) {
     const sheets = google.sheets({ version: 'v4', auth: jwtClient });
 
     const spreadsheetId = process.argv[2]
-    const sheetId = parseInt(process.env.SHEET_ID)
-    const cellNumber = parseInt(process.env.CELL_NUMBER)
-    const newValue = parseInt(process.env.RESULT)
-    console.log(process.env)
-    console.log(process.argv)
-    console.log(spreadsheetId)
-    console.log(sheetId)
-    console.log(cellNumber)
-    console.log(newValue+1)
+    const sheetId = process.argv[3]
+    const cellNumber = process.argv[4]
+    const newValue = process.argv[5]
     const passedColor = {
         red: 0,
         green: 1,
