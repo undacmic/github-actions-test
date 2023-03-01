@@ -22,7 +22,7 @@ jobs:
         env:
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
         run: |
-          gpg --quiet --batch --yes --decrypt --passphrase="$PASSPHRASE" --output $HOME/arhitecturi-bot.json arhitecturi-bot.json.gpg
+          gpg --quiet --batch --yes --decrypt --passphrase="$PASSPHRASE" --output $HOME/homework/arhitecturi-bot.json $HOME/homework/arhitecturi-bot.json.gpg
       # - name: Save result in spreadsheet
       #   run: |
           
@@ -30,7 +30,7 @@ jobs:
       #   env:
       #     TERM: xterm
       #   run: |
-      #     sudo dosbox -c "mount c ." -c "c:" -c "homework.com >> output.txt" -c "exit"
+      #     sudo dosbox -c "mount c ./homework" -c "c:" -c "homework.com >> output.txt" -c "exit"
       # - name: Setup Google Sheets Cell Data
       #   run: |
       #     echo "CELL_DATA_NAME=$(cat OUTPUT.TXT | head -n 1 | cut -f1 -d:)" >> $GITHUB_ENV
