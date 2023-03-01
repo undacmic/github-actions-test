@@ -36,9 +36,9 @@ jobs:
           ./runHomework.sh
       - name: Set updated spreadsheet properties in environment variables
         run: |
-          echo "SHEET_ID=$(cat $GITHUB_WORKSPACE/homework/out/OUTPUT | cut -f1 -d:)" >> $GITHUB_ENV
-          echo "CELL_NUMBER=$(cat $GITHUB_WORKSPACE/homework/out/OUTPUT | cut -f2 -d:)" >> $GITHUB_ENV
-          echo "RESULT=$(cat $GITHUB_WORKSPACE/homework/out/OUTPUT | cut -f3 -d:)" >> $GITHUB_ENV  
+          echo "SHEET_ID=$(tail -n 2 $GITHUB_WORKSPACE/homework/out/README | head -n 1 | cut -f2 -d=)" >> $GITHUB_ENV
+          echo "CELL_NUMBER=$(tail -n 1 $GITHUB_WORKSPACE/homework/out/README | cut -f2 -d=)" >> $GITHUB_ENV
+          echo "RESULT=$(tail -n 1 $GITHUB_WORKSPACE/homework/out/OUTPUT)" >> $GITHUB_ENV  
       - name: Update spreadsheet 
         run: |
           node $GITHUB_WORKSPACE/homework/update-spreadsheet.js $SPREADSHEET_ID $SHEET_ID $CELL_NUMBER $RESULT

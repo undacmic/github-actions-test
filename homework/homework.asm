@@ -3,7 +3,6 @@
     .STACK 32
     .DATA
 buffer      DB 80 DUP(0),'$'
-identity    DB '164198878:15:$'
 fileHandler DW ?
     .CODE
     EXTRN OPEN:PROC
@@ -47,10 +46,6 @@ START:
     PUSH DX
     CALL WRITE
     POP DX
-    ;
-    MOV AH, 09H
-    MOV DX, OFFSET identity
-    INT 21H
     ;
     MOV AH, 4CH
     INT 21H
