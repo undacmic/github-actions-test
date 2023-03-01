@@ -28,14 +28,19 @@ jobs:
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
         run: |
           gpg --quiet --batch --yes --decrypt --passphrase="$PASSPHRASE" --output $GITHUB_WORKSPACE/homework/arhitecturi-bot.json $GITHUB_WORKSPACE/homework/arhitecturi-bot.json.gpg
-      - name: Update spreadsheet
+      - name: Set updated spreadsheet properties in environment variables
         run: |
-          echo "export SHEET_ID=$(echo ${{ github.event.head_commit.message }} | cut -f1 -d:)" >> $GITHUB_ENV
-          echo "export CELL_NUMBER=$(echo ${{ github.event.head_commit.message }} | cut -f2 -d:)" >> $GITHUB_ENV
-          echo "export RESULT=$(tail -n 1 $GITHUB_WORKSPACE/homework/out/OUTPUT)" >> $GITHUB_ENV
-          node $GITHUB_WORKSPACE/homework/update-spreadsheet.js "$SPREADSHEET_ID" "$SHEET_ID" "$CELL_NUMBER" "$RESULT"
+          echo "SHEET_ID=$(echo ${{ github.event.head_commit.message }} | cut -f1 -d:)" >> $GITHUB_ENV
+          echo "CELL_NUMBER=$(echo ${{ github.event.head_commit.message }} | cut -f2 -d:)" >> $GITHUB_ENV
+          echo "RESULT=$(tail -n 1 $GITHUB_WORKSPACE/homework/out/OUTPUT)" >> $GITHUB_ENV
+      - name: Update spreadsheet 
+        run: |
+          node $GITHUB_WORKSPACE/homework/update-spreadsheet.js $SPREADSHEET_ID $SHEET_ID $CELL_NUMBER $RESULT
         env:
           SPREADSHEET_ID: ${{ secrets.GSHEET_SPREADSHEET_ID }}
+          SHEET_ID: ${{ env.SHEET_ID }}
+          CELL_NUMBER: ${{ env.CELL_NUMBER }}
+          RESULT: ${{ env.RESULT }}
           
       # - name: Execute binary and sav output
       #   env:
