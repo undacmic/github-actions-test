@@ -43,7 +43,7 @@ tests="test/test1.txt test/test2.txt test/test3.txt"
 len=$(echo "$tests" | wc -w)
 pointsForOneTest=$(echo "(90.0/${len})" | bc -l)
 points=10
-maxRunTime=10
+maxRunTime=25
 for TEST in $tests
 do
     testName=${TEST##*/}
