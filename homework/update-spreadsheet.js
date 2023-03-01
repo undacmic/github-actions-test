@@ -3,6 +3,14 @@ const { google } = require('googleapis');
 const privatekey = require('./arhitecturi-bot.json');
 const scopes = ['https://www.googleapis.com/auth/spreadsheets'];
 
+var sheetDict = {
+  "C-112A": 0,
+  "C-112B": 306790469,
+  "C-112C": 164198878,
+  "C-112D": 951319946,
+  "C-112E": 577175168,
+};
+
 const jwtClient = new google.auth.JWT(
   privatekey.client_email,
   null,
@@ -32,28 +40,16 @@ jwtClient.authorize(function(err, tokens) {
         blue: 0,
     };
 
-    sheets.spreadsheets.values.update({
+    sheets.spreadsheets.values.get({
       spreadsheetId,
-      range: {
-        sheetId: sheetId,
-        startRowIndex: cellNumber,
-        endRowIndex: parseInt(cellNumber) + 1,
-        startColumnIndex: 2,
-        endColumnIndex: 3,
-      },
-      valueInputOption: 'USER_ENTERED',
-      resource: {
-        values: [
-          [
-            newValue
-          ]
-        ],
-      },
+      range: `${sheetDict[sheetId]}!C1:C`
     }, (err, res) => {
       if (err) {
         console.error(err);
         return;
       }
-      console.log(res.data);
     });
-  });
+
+    const values = res.data.values;
+    console.log(values)
+});
