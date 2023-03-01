@@ -21,7 +21,8 @@ jwtClient.authorize(function(err, tokens) {
     const sheetId = parseInt(process.env.SHEET_ID)
     const cellNumber = parseInt(process.env.CELL_NUMBER)
     const newValue = parseInt(process.env.RESULT)
-
+    console.log(process.env)
+    console.log(process.argv)
     console.log(spreadsheetId)
     console.log(sheetId)
     console.log(cellNumber)
