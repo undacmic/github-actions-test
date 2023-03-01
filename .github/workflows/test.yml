@@ -30,9 +30,9 @@ jobs:
           gpg --quiet --batch --yes --decrypt --passphrase="$PASSPHRASE" --output $GITHUB_WORKSPACE/homework/arhitecturi-bot.json $GITHUB_WORKSPACE/homework/arhitecturi-bot.json.gpg
       - name: Set updated spreadsheet properties in environment variables
         run: |
-          echo "SHEET_ID=$(echo ${{ github.event.head_commit.message }} | cut -f1 -d:)" >> $GITHUB_ENV
-          echo "CELL_NUMBER=$(echo ${{ github.event.head_commit.message }} | cut -f2 -d:)" >> $GITHUB_ENV
-          echo "RESULT=$(tail -n 1 $GITHUB_WORKSPACE/homework/out/OUTPUT)" >> $GITHUB_ENV
+          echo "SHEET_ID=$(cat $GITHUB_WORKSPACE/homework/out/OUTPUT | cut -f1 -d:)" >> $GITHUB_ENV
+          echo "CELL_NUMBER=$(cat $GITHUB_WORKSPACE/homework/out/OUTPUT | cut -f2 -d:)" >> $GITHUB_ENV
+          echo "RESULT=$(cat $GITHUB_WORKSPACE/homework/out/OUTPUT | cut -f3 -d:)" >> $GITHUB_ENV
       - name: Update spreadsheet 
         run: |
           node $GITHUB_WORKSPACE/homework/update-spreadsheet.js $SPREADSHEET_ID $SHEET_ID $CELL_NUMBER $RESULT
