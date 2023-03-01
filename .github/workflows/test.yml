@@ -17,16 +17,22 @@ jobs:
           ls -a
       - name: Environment Setup
         run: |
-          sudo apt-get install -y nasm dosbox
-      - name: Assemble using NASM into a binary
-        run:  nasm -fbin -o homework.com homework.asm
-      - name: Execute binary and save output
+          sudo apt-get install -y dosbox
+      - name: Decrypt File
         env:
-          TERM: xterm
+          PASSPHRASE: ${{ secrets.PASSPHRASE }}
         run: |
-          sudo dosbox -c "mount c ." -c "c:" -c "homework.com >> output.txt" -c "exit"
-      - name: Setup Google Sheets Cell Data
-        run: |
-          echo "CELL_DATA_NAME=$(cat OUTPUT.TXT | head -n 1 | cut -f1 -d:)" >> $GITHUB_ENV
-          echo "CELL_DATA_CLASS=$(cat OUTPUT.TXT | head -n 1 | cut -f2 -d:)" >> $GITHUB_ENV
-          echo "CELL_DATA_RESULT=0" >> $GITHUB_ENV
+          gpg --quiet --batch --yes --decrypt --passphrase="$PASSPHRASE" --output $HOME/arhitecturi-bot.json arhitecturi-bot.json.gpg
+      # - name: Save result in spreadsheet
+      #   run: |
+          
+      # - name: Execute binary and save output
+      #   env:
+      #     TERM: xterm
+      #   run: |
+      #     sudo dosbox -c "mount c ." -c "c:" -c "homework.com >> output.txt" -c "exit"
+      # - name: Setup Google Sheets Cell Data
+      #   run: |
+      #     echo "CELL_DATA_NAME=$(cat OUTPUT.TXT | head -n 1 | cut -f1 -d:)" >> $GITHUB_ENV
+      #     echo "CELL_DATA_CLASS=$(cat OUTPUT.TXT | head -n 1 | cut -f2 -d:)" >> $GITHUB_ENV
+      #     echo "CELL_DATA_RESULT=0" >> $GITHUB_ENV
