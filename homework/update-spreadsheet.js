@@ -21,6 +21,11 @@ jwtClient.authorize(function(err, tokens) {
     const sheetId = parseInt(process.argv[3])
     const cellNumber = parseInt(process.argv[4])
     const newValue = parseInt(process.argv[5])
+
+    console.log(spreadsheetId)
+    console.log(sheetId)
+    console.log(cellNumber)
+    console.log(newValue+1)
     const passedColor = {
         red: 0,
         green: 1,
