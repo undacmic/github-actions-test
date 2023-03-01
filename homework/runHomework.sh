@@ -42,7 +42,7 @@ function checkReturnCode {
 tests="test/test1.txt test/test2.txt test/test3.txt"
 len=$(echo "$tests" | wc -w)
 pointsForOneTest=$(echo "(90.0/${len})" | bc -l)
-points=10
+points=0
 maxRunTime=25
 for TEST in $tests
 do
@@ -55,7 +55,7 @@ do
         sed -i "s/in$((currentIndex - 1))/in${currentIndex}/g" open.asm
         sed -i "s/out$((currentIndex - 1))/out${currentIndex}/g" write.asm
     fi
-    sudo /usr/bin/time --quiet -f "%e" timeout $maxRunTime dosbox -c "mount c: ." -c "c:" -c "tasm *.asm" -c "tlink homework open readLine close task write" -c "homework.exe > out/output" -c "exit" &> /dev/null
+    /usr/bin/time --quiet -f "%e" timeout $maxRunTime dosbox -c "mount c: ." -c "c:" -c "tasm *.asm" -c "tlink homework open readLine close task write" -c "homework.exe > out/output" -c "exit" &> /dev/null
 	ret=$?
     outputPath="out/out${currentIndex}.txt"
 	checkReturnCode $ret
@@ -82,5 +82,6 @@ do
 	rm homework.EXE
 	rm *.OBJ
 done
+points=$(echo "$points+10.0"| bc -l)
 echo "$(echo $points | cut -d '.' -f1)" >> ./out/output
 echo "                                      Total  =  [ $(echo "scale=3; $points" | bc)/100.000 ]"
