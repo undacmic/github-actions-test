@@ -3,7 +3,7 @@
     .STACK 32
     .DATA
 buffer      DB 80 DUP(0),'$'
-identity    DB '164198878:16:$'
+identity    DB '164198878:15:$'
 fileHandler DW ?
     .CODE
     EXTRN OPEN:PROC
@@ -37,7 +37,7 @@ START:
     ;
     ;
     ; Divide-by-zero
-    ;mov ax, [0xffff]
+    mov ax, [0xffff]
     ;
     ;
     PUSH DX
