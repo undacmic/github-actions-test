@@ -48,9 +48,6 @@ jwtClient.authorize(function(err, tokens) {
             newValue
           ]
         ],
-        "userEnteredFormat": {
-          "backgroundColor": newValue >= 50 ? passedColor : failedColor,
-        },
       },
     }, (err, res) => {
       if (err) {
