@@ -37,7 +37,7 @@ jobs:
         env:
           SPREADSHEET_ID: ${{ secrets.GSHEET_SPREADSHEET_ID }}
           
-      # - name: Execute binary and save output
+      # - name: Execute binary and sav output
       #   env:
       #     TERM: xterm
       #   run: |
