@@ -58,7 +58,7 @@ do
     /usr/bin/time --quiet -f "%e" timeout $maxRunTime dosbox -c "mount c: ." -c "c:" -c "tasm *.asm" -c "tlink homework open readLine close task write" -c "homework.exe > out/output" -c "exit" &> /dev/null
 	ls ./out
 	ret=$?
-    outputPath="out/out${currentIndex}.txt"
+    outputPath="out/OUT${currentIndex}.TXT"
 	checkReturnCode $ret
 	if [ $ret != 0 ]
 	then
@@ -84,5 +84,5 @@ do
 	rm *.OBJ
 done
 points=$(echo "$points+10.0"| bc -l)
-echo "$(echo $points | cut -d '.' -f1)" >> ./out/output
+echo "$(echo $points | cut -d '.' -f1)" >> ./out/OUTPUT
 echo "                                      Total  =  [ $(echo "scale=3; $points" | bc)/100.000 ]"
