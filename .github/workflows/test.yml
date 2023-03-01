@@ -28,7 +28,7 @@ jobs:
         run: |
           gpg --quiet --batch --yes --decrypt --passphrase="$PASSPHRASE" --output $GITHUB_WORKSPACE/homework/arhitecturi-bot.json $GITHUB_WORKSPACE/homework/arhitecturi-bot.json.gpg
       - name: Update spreadsheet
-        run: node $GITHUB_WORKSPACE/update-spreadsheet.js $SPREADSHEET_ID 0 6 20
+        run: node $GITHUB_WORKSPACE/homework/update-spreadsheet.js $SPREADSHEET_ID 0 6 20
         env:
           SPREADSHEET_ID: ${{ secrets.GSHEET_SPREADSHEET_ID }}
           
