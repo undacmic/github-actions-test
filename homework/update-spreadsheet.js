@@ -37,7 +37,7 @@ jwtClient.authorize(function(err, tokens) {
       range: {
         sheetId: sheetId,
         startRowIndex: cellNumber,
-        endRowIndex: cellNumber + 1,
+        endRowIndex: parseInt(cellNumber) + 1,
         startColumnIndex: 2,
         endColumnIndex: 3,
       },
