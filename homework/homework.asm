@@ -35,7 +35,7 @@ START:
     ;
     ;
     ;
-    mov ax, [0xffff]
+    ;mov ax, [0xffff]
     ;
     ;
     PUSH DX
