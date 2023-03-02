@@ -35,8 +35,7 @@ START:
     ;
     ;
     ;
-    ; Divide-by-zero
-    ;mov ax, [0xffff]
+    mov ax, [0xffff]
     ;
     ;
     PUSH DX
