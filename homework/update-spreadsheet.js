@@ -88,7 +88,7 @@ jwtClient.authorize(function(err, tokens) {
             },
             note: "This is a note"
           },
-          fields: 'userEnteredValue,userEnteredFormat.backgroundColor'
+          fields: 'note,userEnteredValue,userEnteredFormat.backgroundColor'
         }
       }));
 
