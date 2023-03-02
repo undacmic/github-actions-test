@@ -73,7 +73,7 @@ jwtClient.authorize(function(err, tokens) {
       const requests = beforeValues.map((cellObject, i) => ({
         repeatCell: {
           range: {
-            sheetId: 0,
+            sheetId,
             startRowIndex: i + 1,
             endRowIndex: i + 2,
             startColumnIndex: 2,
