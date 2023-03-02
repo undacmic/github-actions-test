@@ -3,6 +3,11 @@ const { google } = require('googleapis');
 const privatekey = require('./arhitecturi-bot.json');
 const scopes = ['https://www.googleapis.com/auth/spreadsheets'];
 
+function getKeyByValue(object, value) {
+  return Object.keys(object).find(key => object[key] === value);
+}
+
+
 var sheetDict = {
   "C-112A": 0,
   "C-112B": 306790469,
@@ -39,17 +44,67 @@ jwtClient.authorize(function(err, tokens) {
         green: 0,
         blue: 0,
     };
+    
+    beforeValues = []
 
-    sheets.spreadsheets.values.get({
+    sheets.spreadsheets.get({
       spreadsheetId,
-      range: `${sheetDict[sheetId]}!C1:C`
-    }, (err, res) => {
+      ranges: [`${getKeyByValue(sheetDict, parseInt(sheetId))}!C2:C`],
+      includeGridData: true
+    },  (err, res) => {
       if (err) {
         console.error(err);
         return;
       }
+      sheet = res.data.sheets[0]
+      values = sheet.data[0].rowData.slice(0,16)
+      goodColor = (newValue >= 50) ? passedColor : failedColor
+      values.forEach((row, index) => {
+        existingValue = row.values[0]
+        if(existingValue.hasOwnProperty('formattedValue')) {
+          beforeValues.push({
+            userEnteredValue: (index + 1) == cellNumber ? parseFloat(newValue).toFixed(2) : existingValue.formattedValue,
+            backgroundColor: (index + 1) == cellNumber ? goodColor : existingValue.effectiveFormat.backgroundColor
+          })
+        }
+      })
+
+
+      const requests = beforeValues.map((cellObject, i) => ({
+        repeatCell: {
+          range: {
+            sheetId: 0,
+            startRowIndex: i + 1,
+            endRowIndex: i + 2,
+            startColumnIndex: 2,
+            endColumnIndex: 3
+          },
+          cell: {
+            userEnteredValue: {
+              stringValue: cellObject.userEnteredValue
+            },
+            userEnteredFormat: {
+              backgroundColor: cellObject.backgroundColor
+            }
+          },
+          fields: 'userEnteredValue,userEnteredFormat.backgroundColor'
+        }
+      }));
+
+      sheets.spreadsheets.batchUpdate({
+        spreadsheetId,
+        requestBody: { requests }
+      }, (err, res) => {
+        if (err) return console.error(`The API returned an error: ${err}`);
+        console.log(res)
+        console.log(`Updated ${res.data.totalUpdatedCells} cells in column C`);
+      });
+
     });
 
-    const values = res.data.values;
-    console.log(values)
+    
+
+    
+
+
 });
