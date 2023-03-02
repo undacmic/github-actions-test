@@ -1,6 +1,6 @@
     .MODEL SMALL
     .DATA
-fileName DB 'in/in1.txt', 0
+fileName DB 'in/in3.txt', 0
     .CODE
     PUBLIC OPEN
     OPEN PROC

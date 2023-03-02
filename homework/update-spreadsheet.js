@@ -1,7 +1,7 @@
 const { google } = require('googleapis');
 const fs = require('fs');
 
-//const privatekey = require('./arhitecturi-bot.json');
+const privatekey = require('./arhitecturi-bot.json');
 const scopes = ['https://www.googleapis.com/auth/spreadsheets'];
 
 function getKeyByValue(object, value) {

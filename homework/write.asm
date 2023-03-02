@@ -1,6 +1,6 @@
     .MODEL SMALL
     .DATA
-fileName    DB 'out/out1.txt', 0
+fileName    DB 'out/out3.txt', 0
 fileHandler DW ?
     .CODE
     PUBLIC WRITE
