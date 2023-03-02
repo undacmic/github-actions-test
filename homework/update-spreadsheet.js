@@ -1,6 +1,7 @@
 const { google } = require('googleapis');
+const fs = require('fs');
 
-const privatekey = require('./arhitecturi-bot.json');
+//const privatekey = require('./arhitecturi-bot.json');
 const scopes = ['https://www.googleapis.com/auth/spreadsheets'];
 
 function getKeyByValue(object, value) {
@@ -15,6 +16,8 @@ var sheetDict = {
   "C-112D": 951319946,
   "C-112E": 577175168,
 };
+
+executionResult = fs.readFileSync('./out/RESULT', 'utf-8')
 
 const jwtClient = new google.auth.JWT(
   privatekey.client_email,
@@ -86,7 +89,7 @@ jwtClient.authorize(function(err, tokens) {
             userEnteredFormat: {
               backgroundColor: cellObject.backgroundColor
             },
-            note: (i + 1) == cellNumber ? "This is a note" : ""
+            note: (i + 1) == cellNumber ? executionResult : ""
           },
           fields: 'note,userEnteredValue,userEnteredFormat.backgroundColor'
         }
