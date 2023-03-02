@@ -86,7 +86,7 @@ jwtClient.authorize(function(err, tokens) {
             userEnteredFormat: {
               backgroundColor: cellObject.backgroundColor
             },
-            note: "This is a note"
+            note: (i + 1) == cellNumber ? "This is a note" : ""
           },
           fields: 'note,userEnteredValue,userEnteredFormat.backgroundColor'
         }
