@@ -71,7 +71,7 @@ jwtClient.authorize(function(err, tokens) {
 
 
       const requests = beforeValues.map((cellObject, i) => ({
-        repeatCell: {
+        updateCellProperties: {
           range: {
             sheetId,
             startRowIndex: i + 1,
@@ -79,15 +79,22 @@ jwtClient.authorize(function(err, tokens) {
             startColumnIndex: 2,
             endColumnIndex: 3
           },
-          cell: {
-            userEnteredValue: {
-              stringValue: cellObject.userEnteredValue
-            },
-            userEnteredFormat: {
-              backgroundColor: cellObject.backgroundColor
-            }
+          // cell: {
+          //   userEnteredValue: {
+          //     stringValue: cellObject.userEnteredValue
+          //   },
+          //   userEnteredFormat: {
+          //     backgroundColor: cellObject.backgroundColor
+          //   }
+          // },
+          properties: {
+            note: (i+1) == cellNumber ? "This is a comment" : "",
+            backgroundColor: cellObject.backgroundColor
           },
-          fields: 'userEnteredValue,userEnteredFormat.backgroundColor'
+          userEnteredValue: {
+            stringValue: cellObject.userEnteredValue
+          },
+          fields: 'note,userEnteredValue,userEnteredFormat.backgroundColor'
         }
       }));
 
